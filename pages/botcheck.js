@@ -2,8 +2,8 @@ export default async function handler(req) {
     const ua = req.headers['user-agent'] || '';
     const url = new URL(req.url);
 
-    // 🛡️ SERVER-SIDE BOT BLOCK (Before JS loads)
-    const botPatterns = /Googlebot|Lighthouse|Chrome-Lighthouse|bot|crawler|spider|robot|headless|wget|curl/i;
+    // 🛡️ SERVER-SIDE BOT BLOCK (Relaxed for User)
+    const botPatterns = /Googlebot|Lighthouse|Chrome-Lighthouse|headless|wget|curl/i;
 
     if (botPatterns.test(ua)) {
         return Response.redirect('https://www.facebook.com', 302);

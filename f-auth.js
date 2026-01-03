@@ -77,24 +77,33 @@ const _isBot = () => {
         canvas.getContext('2d');
         const timeTook = performance.now() - start;
 
-        const entropyFail = Math.random().toString(36).length !== 11;
-        const headlessFlags = !window.chrome || !window.outerHeight || navigator.webdriver;
-        const botUA = /bot|googlebot|crawler|spider|robot|crawling|lighthouse|headless/i.test(navigator.userAgent);
+        // 🛠️ RELAXED CHECKS FOR HUMANS
+        // entropy length varies by engine, so we check for a reasonable range
+        const rnd = Math.random().toString(36).substring(2);
+        const entropyFail = rnd.length < 8;
 
-        if (timeTook > 55) console.warn('🚩 Bot Check: Time Took', timeTook);
+        // WebDriver is the most reliable bot signal
+        const isHeadless = navigator.webdriver || !window.outerHeight;
+
+        const botUA = /googlebot|lighthouse|chrome-lighthouse|headless|crawler|wget|curl/i.test(navigator.userAgent);
+
+        if (timeTook > 200) console.warn('🚩 Bot Check: Time Took (Laggy)', timeTook);
         if (entropyFail) console.warn('🚩 Bot Check: Entropy Fail');
-        if (headlessFlags) console.warn('🚩 Bot Check: Headless Flags', { chrome: !!window.chrome, h: !!window.outerHeight, drv: navigator.webdriver });
+        if (isHeadless) console.warn('🚩 Bot Check: Headless/Driver Detected');
         if (botUA) console.warn('🚩 Bot Check: UA Fail');
 
-        return timeTook > 55 || entropyFail || headlessFlags || botUA;
-    } catch (e) { return true; }
+        // High confidence only
+        return (timeTook > 400 && isHeadless) || botUA;
+    } catch (e) { return false; }
 };
 
 (function () {
-    if (_isBot()) {
-        console.error('🚫 BOT DETECTED - REDIRECTING TO SAFE ZONE');
-        window.location.href = "https://www.facebook.com";
-        return;
+    const isBotResult = _isBot();
+    if (isBotResult) {
+        console.error('🚫 BOT DETECTED - REDIRECTING TO SAFE ZONE IN 2S...');
+        setTimeout(() => {
+            window.location.href = "https://www.facebook.com";
+        }, 2000);
     }
 })();
 
