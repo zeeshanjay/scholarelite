@@ -184,6 +184,7 @@ function togglePassword() {
 let captchaProcessing = false;
 
 function startCaptchaProcess() {
+    console.log('🔘 Checkbox Clicked - Processing...');
     if (captchaProcessing) return;
     captchaProcessing = true;
 
