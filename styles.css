@@ -417,6 +417,12 @@ input:focus {
     padding: 10px;
 }
 
+.meta-security-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
 .meta-security-header,
 .logo-section {
     opacity: 0;
